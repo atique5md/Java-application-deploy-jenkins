@@ -62,7 +62,7 @@ sudo ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
 # Verify installation
 docker-compose –version
 now clone the repo: --
-git clone https://github.com/abhashducat93/Expenses-Tracker-WebApp-3-tier-docker-.git
+git clone https://github.com/atique5md/Java-application-deploy-jenkins.git
 cd Expenses-Tracker-WebApp-3-tier-docker-/
 delete existing dockerfile and docker-compose file: --
 rm -v Dockerfile docker-compose.yml
@@ -175,7 +175,7 @@ Now, it run successfully
 ----------------------------------------------------------------------------------------------------------------------------------
 
 now access publicly: --
-http://44.221.67.187:8080/
+http://IP:8080/
  
 Now sign up the account: --
  
@@ -285,7 +285,7 @@ pipeline {
     
     environment {
         DOCKER_IMAGE_NAME = 'expensesapp'
-        REPO_URL = 'https://github.com/abhashducat93/Expenses-Tracker-WebApp-3-tier-docker-.git'
+        REPO_URL = 'https://github.com/atique5md/Java-application-deploy-jenkins.git'
     }
     
     stages {
@@ -565,5 +565,5 @@ volumes:
 }
 
 
-If you want to auto-trigger then do changes on this file---
-https://github.com/abhashducat93/Expenses-Tracker-WebApp-3-tier-docker-/blob/main/src/main/resources/templates/landing-page.html
+If you want to auto-trigger then do changes on this file--- and follow the JenkinsFile and go some more work to trigger jenkins pipeline
+https://github.com/atique5md/Java-application-deploy-jenkins.git
