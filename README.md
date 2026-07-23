@@ -60,4 +60,4 @@ This project is licensed under the MIT License.
 =======
 # Java-application-deploy-jenkins
 This project is for understanding the jenkins pipeline and deploy through jenkins
-<h2>Credits:</h2> Application developed by @https://github.com/TrainWithShubham
+<h2>Credits:</h2> Application belong to @https://github.com/TrainWithShubham
