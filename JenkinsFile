@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "expensesapp"
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'git@github.com:atique5md/Java-application-deploy-jenkins.git',
+                    credentialsId: 'github-ssh'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+                    echo "Building Docker image..."
+                    docker build -t ${IMAGE_NAME}:latest .
+                '''
+            }
+        }
+
+        stage('Deploy Application') {
+            steps {
+                sh '''
+                    echo "Stopping existing containers..."
+                    docker compose down --remove-orphans || true
+
+                    echo "Removing old containers..."
+                    docker rm -f mysql-db expenses-app 2>/dev/null || true
+
+                    echo "Deploying application..."
+                    docker compose up -d --build
+                '''
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                sh '''
+                    docker compose ps
+                    docker images
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Application deployed successfully."
+        }
+
+        failure {
+            sh 'docker compose logs --tail=100 || true'
+        }
+    }
+}
