@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ![Language](https://img.shields.io/badge/language-Java%20-blue.svg)
 ![Technologies](https://img.shields.io/badge/technologies-Spring_boot%20-green.svg)
 ![Technologies](https://img.shields.io/badge/technologies-Spring_MVC%20-green.svg)
@@ -56,3 +57,7 @@ Contributions are welcome! If you find a bug or have suggestions for improvement
 
 ## License
 This project is licensed under the MIT License.
+=======
+# Java-application-deploy-jenkins
+This project is for understanding the jenkins pipeline and deploy through jenkins
+>>>>>>> e6fcbc98fec2886a0b776835a2365d797faa3f05
