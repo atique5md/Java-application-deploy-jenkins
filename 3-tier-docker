@@ -1,0 +1,177 @@
+------------------------------------------------------------------------------------------------------------------------------
+Expenses-Tracker-WebApp (3 -Tier Application with Docker Compose)
+
+
+git clone https://github.com/aryan123mittal/Expenses-Tracker-WebApp-3-tier-docker-.git
+
+# Java application
+
+
+
+Thymeleaf (framework) 		#(front end) UI is created on this
+
+Springboot (backend)		#Springboot will be build from a particular tool i.e. maven
+				#Maven is a build tool developed by Apache organization 
+MySQL (DB)
+
+			(**Apache Maven**)
+			[Diagram]
+
+	Thymeleaf    |    Spring boot    |    MySQL DB
+
+		3 container we have to build
+
+
+
+We can combine both Thymeleaf & Springboot in an application (frontend + backend)
+
+Base image : Apache Maven
+
+
+---
+
+
+
+	Browser
+	   |
+	   v
+	Thymeleaf UI
+	   |
+	Spring Boot Application
+	   |
+	MySQL Database
+
+
+---
+
+
+
+🧠 Final Correct Statement 
+
+> Thymeleaf is a server-side template engine that works with Spring Boot. The Spring Boot application is built using Apache Maven and connects to a MySQL database. Thymeleaf and Spring Boot run in the same container, while MySQL runs in a separate container.
+
+
+---
+
+
+
+
+→ Now start,
+
+cd Expenses-Tracker-WebApp/
+
+rm -v Dockerfile docker-compose.yml
+
+Now, create own Dockerfile
+
+---------------------------
+vim Dockerfile
+
+
+
+# stage 1 – Build the JAR (Java app runtime) using maven
+
+FROM maven:3.8.3-openjdk-17 AS builder
+
+WORKDIR /app
+
+COPY . .
+
+#create JAR file  #if developer did not create test case or it will be blank we have to skip them
+RUN mvn clean install -DskipTests=true		
+
+# stage 2 – Execute JAR file from above stage
+
+#FROM openjdk:17-alpine 	#this no longer exist
+FROM eclipse-temurin:17-jre-alpine
+
+
+WORKDIR /app
+
+COPY --from=builder /app/target/*.jar /app/expenseapp.jar
+
+CMD ["java","expenseapp.jar"]
+
+:wq!
+
+---
+
+
+docker build -t expensesapp .			#expensesapp : name given, -t : flag stands for --tag
+docker build --no-cache -t expensesapp .  	#if error comes might be take cache so run this
+
+docker images	#(it shows that expenses app image will build in 353 mb)
+
+------
+
+vim docker-compose.yml
+
+
+#version: "3.8"		#not needed in new version
+
+services:
+
+  java_app:
+    build:
+      context: .
+    container_name: "expensesapp"
+    networks:
+      - expenses-app-nw
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/expenses_tracker?allowPublicKeyRetrieval=true&useSSL=false"
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Test@123
+      #src;main;resources;application properties you will get environment variables
+    depends_on:
+      - mysql_db 
+    ports:
+      - "8080:8080"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL","curl -f http://localhost:8080 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s  
+
+    
+  mysql_db:
+    image: mysql:latest
+    container_name: mysql
+    networks:
+      - expenses-app-nw
+    environment:
+      MYSQL_ROOT_PASSWORD: Test@123
+      MYSQL_DATABASE: expenses_tracker
+    restart: always
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD","mysqladmin","ping","-h","localhost","-uroot","-pTest@123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s  
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+
+networks:
+  expenses-app-nw:
+
+
+
+:wq!
+--------
+docker compose up --build
+	OR
+docker compose up -d 			#for run in detach mode
+
+http://localhost:8080
+
+Now, it run successfully
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+

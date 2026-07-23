@@ -1,0 +1,5 @@
+mysql-data/
+target/
+*.log
+.env
+mysql-data/
