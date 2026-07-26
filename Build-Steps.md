@@ -60,12 +60,12 @@ Install docker and docker-compse
 ```sudo ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose```
 
 # Verify installation
-```docker-compose –version```
+```docker-compose –version```<br>
 now clone the repo: --
 ```git clone https://github.com/atique5md/Java-application-deploy-jenkins.git```
 ```cd Expenses-Tracker-WebApp-3-tier-docker-/```
-delete existing dockerfile and docker-compose file: --
-```rm -v Dockerfile docker-compose.yml```
+<br> delete existing dockerfile and docker-compose file: --
+```rm -v Dockerfile docker-compose.yml``` <br>
 
 Now, create own Dockerfile
 
@@ -99,8 +99,8 @@ CMD ["java","expenseapp.jar"]
 
 ---
 
-```docker build -t expensesapp .  ```
-#expensesapp : name given, -t : flag stands for --tag
+```docker build -t expensesapp .  ```<br>
+#expensesapp : name given, -t : flag stands for --tag <Br>
 ```docker build --no-cache -t expensesapp .  ```
 #if error comes might be take cache so run this
 
