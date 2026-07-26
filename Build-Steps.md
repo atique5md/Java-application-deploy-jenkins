@@ -204,7 +204,7 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-```mysql> show databases;```
+```mysql> show databases;``` <br>
 +--------------------+
 | Database           |
 +--------------------+
@@ -213,7 +213,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 | mysql              |
 | performance_schema |
 | sys                |
-+--------------------+
++--------------------+ <br>
 5 rows in set (0.001 sec)
 
 ```mysql> use expenses_tracker```
@@ -221,7 +221,7 @@ Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
 Database changed
-```mysql> show tables;```
+```mysql> show tables;``` <br>
 +----------------------------+
 | Tables_in_expenses_tracker |
 +----------------------------+
@@ -231,20 +231,20 @@ Database changed
 | role                       |
 | user                       |
 | users_roles                |
-+----------------------------+
++----------------------------+ <br>
 6 rows in set (0.001 sec)
 
 ```mysql> select * from user;```
 Empty set (0.000 sec)
 
-```mysql> select * from user;```
+```mysql> select * from user;``` <br>
 +----+------------------+--------------------------------------------------------------+-----------+-----------+
 | id | enabled          | password                                                     | user_name | client_id |
 +----+------------------+--------------------------------------------------------------+-----------+-----------+
 |  1 | 0x01             | $2a$10$ojvfGtslFpTZ/ZW9fkkzousZqyjeA3JILriJjYSp9Tk1sXYax7Bym | aman      |         1 |
 +----+------------------+--------------------------------------------------------------+-----------+-----------+
 1 row in set (0.000 sec)
-
+<br>
 mysql>
 
 
