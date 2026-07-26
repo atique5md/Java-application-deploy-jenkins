@@ -48,34 +48,34 @@ Base image : Apache Maven
 
 → Now start,
 Install docker and docker-compse
-apt update -y
-apt install docker.io -y
+```apt update -y```
+```apt install docker.io -y```
 # Download Docker Compose v2.37.1 for Linux x86_64
-sudo curl -L https://github.com/docker/compose/releases/download/v2.37.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+```sudo curl -L https://github.com/docker/compose/releases/download/v2.37.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose```
 
 # Make it executable
-sudo chmod +x /usr/local/bin/docker-compose
+```sudo chmod +x /usr/local/bin/docker-compose```
 
 # Create symlink to /usr/bin for better compatibility
-sudo ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
+```sudo ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose```
 
 # Verify installation
-docker-compose –version
+```docker-compose –version```
 now clone the repo: --
-git clone https://github.com/atique5md/Java-application-deploy-jenkins.git
-cd Expenses-Tracker-WebApp-3-tier-docker-/
+```git clone https://github.com/atique5md/Java-application-deploy-jenkins.git```
+```cd Expenses-Tracker-WebApp-3-tier-docker-/```
 delete existing dockerfile and docker-compose file: --
-rm -v Dockerfile docker-compose.yml
+```rm -v Dockerfile docker-compose.yml```
 
 Now, create own Dockerfile
 
 ---------------------------
-vim Dockerfile
+```vim Dockerfile```
 
 
 # stage 1 – Build the JAR (Java app runtime) using maven
 
-FROM maven:3.8.3-openjdk-17 AS builder
+```FROM maven:3.8.3-openjdk-17 AS builder
 
 WORKDIR /app
 
@@ -94,23 +94,25 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar /app/expenseapp.jar
 
 CMD ["java","expenseapp.jar"]
-
+```
 :wq!
 
 ---
 
-docker build -t expensesapp .     #expensesapp : name given, -t : flag stands for --tag
-docker build --no-cache -t expensesapp .    #if error comes might be take cache so run this
+```docker build -t expensesapp .  ```
+#expensesapp : name given, -t : flag stands for --tag
+```docker build --no-cache -t expensesapp .  ```
+#if error comes might be take cache so run this
 
-docker images #(it shows that expenses app image will build in 353 mb)
+```docker images #(it shows that expenses app image will build in 353 mb)```
 
 ------
 
-vim docker-compose.yml
+```vim docker-compose.yml```
 
 #version: "3.8"   #not needed in new version
 
-services:
+```services:
 
   java_app:
     build:
@@ -159,14 +161,14 @@ services:
 networks:
   expenses-app-nw:
 
-
+```
 :wq!
 --------
 Now build and run the container 
 
-docker compose up –build    #it will build the app and run container in frontend mode
+```docker compose up –build  ```  #it will build the app and run container in frontend mode
   OR
-       #for run in detach mode
+#for run in detach mode
 
 http://localhost:8080
 
@@ -202,7 +204,7 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> show databases;
+```mysql> show databases;```
 +--------------------+
 | Database           |
 +--------------------+
@@ -214,12 +216,12 @@ mysql> show databases;
 +--------------------+
 5 rows in set (0.001 sec)
 
-mysql> use expenses_tracker;
+```mysql> use expenses_tracker```
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
 Database changed
-mysql> show tables;
+```mysql> show tables;```
 +----------------------------+
 | Tables_in_expenses_tracker |
 +----------------------------+
@@ -232,10 +234,10 @@ mysql> show tables;
 +----------------------------+
 6 rows in set (0.001 sec)
 
-mysql> select * from user;
+```mysql> select * from user;```
 Empty set (0.000 sec)
 
-mysql> select * from user;
+```mysql> select * from user;```
 +----+------------------+--------------------------------------------------------------+-----------+-----------+
 | id | enabled          | password                                                     | user_name | client_id |
 +----+------------------+--------------------------------------------------------------+-----------+-----------+
@@ -252,10 +254,11 @@ mysql>
 declarative pipeline to deploy above app via Jenkins: --
 step1: install docker, Jenkins, git on ubuntu instance
 # On the Jenkins agent/node
-sudo apt update -y
+```sudo apt update -y
 sudo apt install fontconfig openjdk-21-jre -y
 java -version
-
+```
+```
 sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
   https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
 echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
@@ -263,24 +266,27 @@ echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt update
 sudo apt install Jenkins -y
-
+```
+```
 sudo apt update -y
 sudo apt install docker.io curl git -y
 sudo curl -L https://github.com/docker/compose/releases/download/v2.37.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
+```
 
 # Add Jenkins user to docker group (if running as jenkins user)
-sudo usermod -aG docker jenkins
+```sudo usermod -aG docker jenkins```
 # Or for current user
-sudo usermod -aG docker $USER
+```sudo usermod -aG docker $USER```
 
 # Verify
-docker --version
-docker-compose –version
+```docker --version```
+```docker-compose –version```
+#v2 ```docker compose version```
 
 pipeline : -- Direct deployment through Jenkins
-pipeline {
+```pipeline {
     agent any
     
     environment {
@@ -564,6 +570,6 @@ volumes:
     }
 }
 
-
+```
 If you want to auto-trigger then do changes on this file--- and follow the JenkinsFile and go some more work to trigger jenkins pipeline
 https://github.com/atique5md/Java-application-deploy-jenkins.git
