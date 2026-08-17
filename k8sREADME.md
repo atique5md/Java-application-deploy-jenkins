@@ -403,5 +403,9 @@ kubectl delete -f k8s/
 - Prometheus & Grafana Monitoring
 - ArgoCD GitOps
 
-#Screenshots
+# Screenshots
 
+![Example Image](screenshots/k8s1.png) <br>
+![Example Image](screenshots/k8s2.png) <br>
+![Example Image](screenshots/k8s3.png) <br>
+![Example Image](screenshots/k8s4.png) <br>
