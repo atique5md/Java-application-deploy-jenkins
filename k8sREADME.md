@@ -402,3 +402,6 @@ kubectl delete -f k8s/
 - Horizontal Pod Autoscaler
 - Prometheus & Grafana Monitoring
 - ArgoCD GitOps
+
+#Screenshots
+
